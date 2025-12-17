@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+}
+
+
+/* Navigation */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: #f5f5f5;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #666;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:first-child {
+    color: #000;
+    font-weight: 600;
+}
+
+.profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+}
+
+
+/* Main Content */
+
+.container {
+    max-width: 900px;
+    margin: 3rem auto;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #000;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 3rem;
+    font-weight: 400;
+}
+
+
+/* Card with background image */
+
+.detector-card {
+    background: #000;
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Background Image Overlay */
+
+.detector-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    /* Adjust opacity to control visibility */
+    z-index: 0;
+}
+
+
+/* Dark overlay for better text readability */
+
+.detector-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    z-index: 0;
+}
+
+
+/* Upload Button */
+
+.upload-btn {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    /* Glass effect */
+    backdrop-filter: blur(10px);
+    /* Key property! */
+    -webkit-backdrop-filter: blur(10px);
+    /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    padding: 1.2rem 3rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.upload-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.upload-icon {
+    font-size: 1.5rem;
+}
+
+.file-types {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Text Area */
+
+.text-input {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    z-index: 1;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #fff;
+    font-size: 1rem;
+    resize: none;
+    font-family: inherit;
+    transition: all 0.3s;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* Run Check Button */
+
+.check-btn {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 1.2rem 4rem;
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 1;
+    background: rgba(30, 41, 59, 0.2);
+}
+
+.check-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
+    background: rgba(30, 41, 59, 1);
+    border-color: rgba(59, 130, 246, 0.6);
+    transform: translateY(-2px);
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    nav {
+        padding: 1rem 1.5rem;
+    }
+    .detector-card {
+        padding: 3rem 1.5rem;
+    }
+}

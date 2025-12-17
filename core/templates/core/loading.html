@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyzing Your Text...</title>
+    <link rel="stylesheet" href="{% static 'css/loading.css' %}">
+</head>
+<body>
+    <div class="loading-container">
+        <div class="content-wrapper">
+            <h1 class="main-title">Analyzing your text...</h1>
+            
+            <div class="steps-container">
+                <div class="step active">
+                    <div class="step-icon">
+                        <div class="spinner-small"></div>
+                    </div>
+                    <span class="step-text">Processing texts</span>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="circle-empty"></div>
+                    </div>
+                    <span class="step-text">Detecting AI-generated content</span>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="circle-empty"></div>
+                    </div>
+                    <span class="step-text">Comparing to human writing pattern</span>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-percentage">0%</span>
+            </div>
+
+            <div class="time-estimate">
+                Approximate Time: <span class="time-value">7-12 sec</span>
+            </div>
+        </div>
+
+        <div class="dots-indicator">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <script>
+        const checkId = "{{ check_id }}";
+        let progress = 0;
+        let processingStartTime = Date.now();
+        const estimatedTime = 10000;
+        let backendComplete = false;
+        let redirecting = false;
+        
+        const progressFill = document.querySelector('.progress-fill');
+        const progressPercentage = document.querySelector('.progress-percentage');
+        const steps = document.querySelectorAll('.step');
+        
+        function createCheckmark() {
+            return `
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" fill="#10b981"/>
+                    <path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            `;
+        }
+        
+        function createSpinner() {
+            return '<div class="spinner-small"></div>';
+        }
+        
+        function createEmptyCircle() {
+            return '<div class="circle-empty"></div>';
+        }
+        
+        function updateSteps(currentProgress) {
+            if (currentProgress < 30) {
+                steps[0].classList.add('active');
+                steps[0].classList.remove('completed');
+                steps[0].querySelector('.step-icon').innerHTML = createSpinner();
+                
+                steps[1].classList.remove('active', 'completed');
+                steps[1].querySelector('.step-icon').innerHTML = createEmptyCircle();
+                
+                steps[2].classList.remove('active', 'completed');
+                steps[2].querySelector('.step-icon').innerHTML = createEmptyCircle();
+                
+            } else if (currentProgress < 60) {
+                steps[0].classList.add('completed');
+                steps[0].classList.remove('active');
+                steps[0].querySelector('.step-icon').innerHTML = createCheckmark();
+                
+                steps[1].classList.add('active');
+                steps[1].classList.remove('completed');
+                steps[1].querySelector('.step-icon').innerHTML = createSpinner();
+                
+                steps[2].classList.remove('active', 'completed');
+                steps[2].querySelector('.step-icon').innerHTML = createEmptyCircle();
+                
+            } else if (currentProgress < 95) {
+                steps[0].classList.add('completed');
+                steps[0].classList.remove('active');
+                steps[0].querySelector('.step-icon').innerHTML = createCheckmark();
+                
+                steps[1].classList.add('completed');
+                steps[1].classList.remove('active');
+                steps[1].querySelector('.step-icon').innerHTML = createCheckmark();
+                
+                steps[2].classList.add('active');
+                steps[2].classList.remove('completed');
+                steps[2].querySelector('.step-icon').innerHTML = createSpinner();
+                
+            } else {
+                steps[0].classList.add('completed');
+                steps[0].classList.remove('active');
+                steps[0].querySelector('.step-icon').innerHTML = createCheckmark();
+                
+                steps[1].classList.add('completed');
+                steps[1].classList.remove('active');
+                steps[1].querySelector('.step-icon').innerHTML = createCheckmark();
+                
+                steps[2].classList.add('completed');
+                steps[2].classList.remove('active');
+                steps[2].querySelector('.step-icon').innerHTML = createCheckmark();
+            }
+        }
+        
+        function checkRedirect() {
+            if (progress >= 100 && backendComplete && !redirecting) {
+                redirecting = true;
+                setTimeout(() => {
+                    window.location.href = "{% url 'results' check_id %}";
+                }, 500);
+            }
+        }
+        
+        function updateProgress() {
+            if (redirecting) return;
+            
+            const elapsed = Date.now() - processingStartTime;
+            
+            if (backendComplete) {
+                progress = Math.min(100, progress + 8);
+            } else {
+                let calculatedProgress;
+                
+                if (elapsed < estimatedTime * 0.3) {
+                    calculatedProgress = (elapsed / (estimatedTime * 0.3)) * 35;
+                } else if (elapsed < estimatedTime * 0.6) {
+                    const adjustedElapsed = elapsed - (estimatedTime * 0.3);
+                    calculatedProgress = 35 + (adjustedElapsed / (estimatedTime * 0.3)) * 30;
+                } else {
+                    const adjustedElapsed = elapsed - (estimatedTime * 0.6);
+                    calculatedProgress = 65 + (adjustedElapsed / (estimatedTime * 0.4)) * 25;
+                }
+                
+                progress = Math.min(90, calculatedProgress + (Math.random() - 0.5) * 2);
+            }
+            
+            progressFill.style.width = progress + '%';
+            progressPercentage.textContent = Math.round(progress) + '%';
+            updateSteps(progress);
+            
+            checkRedirect();
+            
+            if (progress < 100) {
+                requestAnimationFrame(updateProgress);
+            }
+        }
+        
+        requestAnimationFrame(updateProgress);
+        
+        fetch("{% url 'process_check' check_id %}")
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'complete') {
+                    backendComplete = true;
+                } else if (data.status === 'error') {
+                    alert('An error occurred during processing.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during processing.');
+            });
+            
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || (performance.getEntriesByType("navigation")[0] && performance.getEntriesByType("navigation")[0].type === 'back_forward')) {
+                window.location.href = "{% url 'home' %}";
+            }
+        });
+        
+        if (window.history && window.history.pushState) {
+            window.history.pushState('forward', null, window.location.href);
+            window.addEventListener('popstate', function() {
+                window.location.href = "{% url 'home' %}";
+            });
+        }
+    </script>
+</body>
+</html>

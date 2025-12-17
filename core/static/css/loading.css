@@ -1,0 +1,235 @@
+/* loading-styles.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background: #e0f2fe;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.loading-container {
+    max-width: 800px;
+    width: 100%;
+}
+
+.content-wrapper {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.main-title {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.steps-container {
+    margin-bottom: 40px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    gap: 15px;
+}
+
+.step-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-text {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.step.completed .step-text {
+    color: #10b981;
+}
+
+.step.active .step-text {
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+.circle-empty {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #cbd5e1;
+    border-radius: 50%;
+}
+
+
+/* Update your loading-styles.css */
+
+.spinner-small {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #bfdbfe;
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+
+/* Make sure dynamically created spinners also animate */
+
+.step-icon .spinner-small {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3b82f6;
+    border-radius: 10px;
+    width: 44%;
+    transition: width 0.3s ease;
+}
+
+.progress-percentage {
+    font-size: 1rem;
+    color: #475569;
+    font-weight: 600;
+    min-width: 45px;
+}
+
+.time-estimate {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-top: 10px;
+}
+
+.time-value {
+    font-weight: 600;
+    color: #3b82f6;
+}
+
+.testimonial {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.user-role {
+    font-size: 0.9rem;
+    color: #3b82f6;
+}
+
+.testimonial-text {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.dots-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: rgba(255, 255, 255, 0.9);
+    width: 24px;
+    border-radius: 4px;
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 30px 25px;
+    }
+    .main-title {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+    .step-text {
+        font-size: 1rem;
+    }
+    .testimonial {
+        padding: 20px;
+    }
+}

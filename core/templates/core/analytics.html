@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Detection Results</title>
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="results-card">
+
+        <div class="header">
+            <h1 class="result-title">
+                {{ ai_prediction }}
+            </h1>
+
+            <a href="#" class="detailed-report-link">See Detailed Report</a>
+        </div>
+
+        <div class="chart-section">
+            <div class="donut-chart">
+                <svg width="180" height="180" viewBox="0 0 180 180">
+                    <circle class="donut-background" cx="90" cy="90" r="72"></circle>
+                    <circle class="donut-segment-ai" cx="90" cy="90" r="72"></circle>
+                    <circle class="donut-segment-human" cx="90" cy="90" r="72"></circle>
+                </svg>
+
+                <div class="donut-center">
+                    <div class="donut-percentage">{{ human_percentage|floatformat:0 }}%</div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot ai"></div>
+                    <span class="legend-text">{{ ai_percentage|floatformat:0 }}% AI generated text</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot human"></div>
+                    <span class="legend-text">{{ human_percentage|floatformat:0  }}% Human written text</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot ai"></div>
+                    <span class="legend-text">AI Confidence: {{ ai_confidence|floatformat:0 }}%</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Try our AI Detector</h2>
+
+        <ul class="features-list">
+            <li class="feature-item">Check text authenticity and AI presence</li>
+            <li class="feature-item">Preserves original meaning</li>
+            <li class="feature-item">Adjust readability levels</li>
+        </ul>
+
+        <button class="action-button">Remove AI Content</button>
+    </div>
+</div>
+
+<script src="{% static 'js/results.js' %}"></script>
+<script>
+    // Pass Django values into JS
+    const AI_PERCENT = {{ ai_percentage|floatformat:0 }};
+    const HUMAN_PERCENT = {{ human_percentage|floatformat:0 }};
+</script>
+
+</body>
+</html>

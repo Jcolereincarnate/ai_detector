@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assignment Detector</title>
+    <link rel="stylesheet" href={% static 'css/index.css' %}>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">Nifemi's PCA</div>
+        <!-- <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#reports">Reports</a>
+            <div class="profile-pic"></div>
+        </div>
+        -->
+    </nav>
+
+    <div class="container">
+        <h1>AI Assignment Detector</h1>
+        <p class="subtitle">Upload your file or paste to check if it's AI generated.</p>
+
+        <form class="detector-card" method="POST" enctype="multipart/form-data" action="{% url 'plagiarism_check' %}">
+            {% csrf_token %}
+            <input type="file" name="document" id="fileInput" accept=".docx,.pdf,.txt" style="display: none;">
+            <label for="fileInput" class="upload-btn">
+                <span class="material-symbols-outlined">upload</span>
+                Upload
+            </label>
+        
+            <div class="file-types">.docx .pdf .txt</div>
+            <div class="text-input">
+                <textarea name="text_input" placeholder="Place Assignment text here..."></textarea>
+            </div>
+        
+            <button type="submit" class="check-btn">Run Check</button>
+        </form>
+    </div>
+</body>
+
+</html>
