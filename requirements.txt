@@ -1,7 +1,5 @@
-#ask Nifemi to install Python 3.11
-
 # Core Python packages
-numpy==2.2.0
+numpy==1.26.4  # Latest NumPy 1.x version
 pillow==12.0.0
 python-dateutil==2.9.0.post0
 pytz==2025.2
@@ -65,8 +63,8 @@ lxml==6.0.2
 Jinja2==3.1.6
 MarkupSafe==3.0.3
 
-# OpenCV for image processing
-opencv-python==4.12.0.88
+# OpenCV for image processing - DOWNGRADED to work with NumPy 1.x
+opencv-python==4.8.1.78
 
 # Progress / utilities
 tqdm==4.67.1

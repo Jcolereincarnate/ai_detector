@@ -16,8 +16,7 @@
             <h1 class="result-title">
                 {{ ai_prediction }}
             </h1>
-
-            <a href="#" class="detailed-report-link">See Detailed Report</a>
+            <a href="{% url 'home' %}" class="detailed-report-link">&larr; Back to Home</a>
         </div>
 
         <div class="chart-section">
@@ -29,7 +28,13 @@
                 </svg>
 
                 <div class="donut-center">
-                    <div class="donut-percentage">{{ human_percentage|floatformat:0 }}%</div>
+                    <div class="donut-percentage">
+                        {% if human_percentage >50 %}
+                            {{ human_percentage|floatformat:0 }}%
+                        {% else %}
+                            {{ ai_percentage|floatformat:0 }}%
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 
@@ -43,7 +48,6 @@
                     <span class="legend-text">{{ human_percentage|floatformat:0  }}% Human written text</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-dot ai"></div>
                     <span class="legend-text">AI Confidence: {{ ai_confidence|floatformat:0 }}%</span>
                 </div>
             </div>
@@ -57,7 +61,7 @@
             <li class="feature-item">Adjust readability levels</li>
         </ul>
 
-        <button class="action-button">Remove AI Content</button>
+       <!-- <button class="action-button">Remove AI Content</button>-->
     </div>
 </div>
 
