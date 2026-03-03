@@ -125,5 +125,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']   
 
-COPYLEAKS_API = "0afde743-2c71-4c6f-8364-d9ad4dd0ecca"
-PLAGIARISM_API ="R0axth942bF8J-pkYpyjDHjQ6QitSTZu"

@@ -44,16 +44,6 @@ class AIContentDetector:
         return chunks
     
     def detect(self, text):
-        """
-        This should return a formatted response like:
-            {
-                success: bool,
-                prediction: 'AI-Generated'/'Human-Written'/'Uncertain',
-                confidence: float (avg confidence),
-                probabilities: aggregated,
-                ai_percentage: float (0-100)
-            }
-        """
         if not text or len(text.strip()) == 0:
             return {
                 "success": False,
