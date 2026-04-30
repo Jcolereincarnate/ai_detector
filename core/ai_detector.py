@@ -107,7 +107,7 @@ class AIContentDetector:
                 human_count += 1
             
             total_confidence += confidence
-            prob_sum["AI-Generated"] + ai_prob
+            prob_sum["AI-Generated"] += ai_prob
             prob_sum["Human-Written"] += human_prob
         
         total_chunks = len(chunks)
