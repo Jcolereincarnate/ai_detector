@@ -14,5 +14,10 @@ def extract_text_from_docx(file):
 
 
 def extract_text_from_pdf(file):
-    pass
+    reader = PyPDF2.PdfReader(file)
+    text = ""
+    for page in reader.pages:
+        if page.extract_text():
+            text += page.extract_text() + "\n"
+    return text
 
