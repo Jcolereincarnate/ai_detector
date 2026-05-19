@@ -1,9 +1,6 @@
 # utils.py
 from docx import Document
 import PyPDF2
-import requests
-from django.conf import settings
-
 def extract_text_from_txt(file):
     return file.read().decode("utf-8", errors="ignore")
 
