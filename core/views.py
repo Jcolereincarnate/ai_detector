@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .utils import *
 from .ai_detector import AIContentDetector
 import uuid
+from django.http import HttpResponse
 
 ai_detector = AIContentDetector()
 
@@ -91,3 +92,6 @@ def results(request, check_id):
     del processing_results[check_id]
     
     return render(request, 'core/analytics.html', context)
+
+def health_check(request):
+    return HttpResponse("OK", content_type="text/plain")

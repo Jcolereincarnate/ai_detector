@@ -7,4 +7,5 @@ urlpatterns = [
     path('loading/<str:check_id>/', views.loading, name='loading'),
     path('process/<str:check_id>/', views.process_check, name='process_check'),
     path('results/<str:check_id>/', views.results, name='results'),
+    path('health/', views.health_check, name='health_check'),
 ]
