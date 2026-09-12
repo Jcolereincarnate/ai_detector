@@ -2,9 +2,9 @@ _pycache_/
 *.pyc
 *.pyo
 .env
-venv/
+.venv/
 env/
 db.sqlite3
 staticfiles/
 media/
-.env
+.venv
